@@ -10,6 +10,10 @@ on:
         description: 'Message from the trigger'
         required: false
 
+permissions:
+  contents: write
+  actions: write
+
 jobs:
   run-ci-workflow:
     name: Run CI workflow
@@ -28,9 +32,6 @@ jobs:
           git config --local user.name "GitHub Action"
 
       - name: Run CI workflow
-        permissions:
-          contents: write # 允许写入文件
-          actions: write # **关键**：允许触发 actions
         run: |
           # 获取当前日期和时间
           CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')
