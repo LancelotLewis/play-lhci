@@ -1,17 +1,17 @@
-name: Scheduled CI workflow
+name: Scheduled Empty Commit
 
 on:
   schedule:
     - cron: '0 */1 * * *'
-  workflow_dispatch:
+  workflow_dispatch: # 允许手动触发
 
 permissions:
   contents: write
   actions: write
 
 jobs:
-  run-ci-workflow:
-    name: Run CI workflow
+  create-empty-commit:
+    name: Create Empty Commit
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +26,16 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-      - name: Run CI workflow
+      - name: Create empty commit
         run: |
           # 获取当前日期和时间
           CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')
           COMMIT_MESSAGE="🕐 auto: $CURRENT_DATE"
+
+          # 创建一个空的提交
+          git commit --allow-empty -m "$COMMIT_MESSAGE"
+
+      - name: Push to repository
+        run: |
+          git push origin HEAD:${{ github.ref }}
           gh workflow run "CI" -f message="$COMMIT_MESSAGE"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
