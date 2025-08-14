@@ -4,11 +4,6 @@ on:
   schedule:
     - cron: '0 */1 * * *'
   workflow_dispatch:
-    inputs:
-      # 可以定义一些输入参数
-      message:
-        description: 'Message from the trigger'
-        required: false
 
 permissions:
   contents: write

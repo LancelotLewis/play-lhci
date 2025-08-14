@@ -2,6 +2,10 @@ name: CI
 on:
   push:
   workflow_dispatch:
+    inputs:
+      message:
+        description: 'Message from the trigger'
+        required: false
 jobs:
   lhci:
     name: Lighthouse
