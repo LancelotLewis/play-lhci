@@ -1,0 +1,36 @@
+name: Scheduled Empty Commit
+
+on:
+  schedule:
+    - cron: '0 */1 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  create-empty-commit:
+    name: Create Empty Commit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Create empty commit
+        run: |
+          # 获取当前日期和时间
+          CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')
+          COMMIT_MESSAGE="🕐 auto: $CURRENT_DATE"
+
+          # 创建一个空的提交
+          git commit --allow-empty -m "$COMMIT_MESSAGE"
+
+      - name: Push to repository
+        run: |
+          git push origin HEAD:${{ github.ref }}
