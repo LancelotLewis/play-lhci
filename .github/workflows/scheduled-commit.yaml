@@ -38,6 +38,7 @@ jobs:
       - name: Push to repository
         run: |
           git push origin HEAD:${{ github.ref }}
+          sleep 30
           gh workflow run "CI" -f message="$COMMIT_MESSAGE"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
