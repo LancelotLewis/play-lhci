@@ -5,6 +5,10 @@ on:
     - cron: '0 */1 * * *'
   workflow_dispatch: # 允许手动触发
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   create-empty-commit:
     name: Create Empty Commit
@@ -14,7 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
           fetch-depth: 0
 
       - name: Configure Git
@@ -33,4 +37,5 @@ jobs:
 
       - name: Push to repository
         run: |
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
           git push origin HEAD:${{ github.ref }}
