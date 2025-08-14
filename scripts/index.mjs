@@ -3,6 +3,8 @@ import { dirname, join } from 'node:path';
 
 import { $, fs, within, cd } from 'zx';
 
+$.verbose = true;
+
 // 获取当前文件的路径信息
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
