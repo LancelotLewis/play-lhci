@@ -39,3 +39,5 @@ jobs:
         run: |
           git push origin HEAD:${{ github.ref }}
           gh workflow run "CI" -f message="$COMMIT_MESSAGE"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
