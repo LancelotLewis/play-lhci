@@ -16,4 +16,4 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: run Lighthouse CI
-        run: pnpm start
+        run: cd sites/www.arcblock.io && lhci autorun
