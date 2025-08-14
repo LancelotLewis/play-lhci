@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-import { $, fs, within, cd } from 'zx';
+import { $, fs, cd } from 'zx';
 
 // 获取当前文件的路径信息
 const __filename = fileURLToPath(import.meta.url);
@@ -11,8 +11,6 @@ const __dirname = dirname(__filename);
 const sites = await fs.readdir(join(__dirname, '../sites'));
 
 for (const site of sites) {
-  within(async () => {
-    cd(`${__dirname}/../sites/${site}`);
-    await $`lhci autorun`;
-  });
+  cd(`${__dirname}/../sites/${site}`);
+  await $`lhci autorun`;
 }
