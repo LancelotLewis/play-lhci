@@ -14,9 +14,10 @@ jobs:
   create-empty-commit:
     name: Create Empty Commit
     runs-on: ubuntu-latest
-    if: ${{secrets.LHCI_TOKEN != '' && vars.LHCI_SERVER_BASE_URL != ''}}
+    if: vars.LHCI_SERVER_BASE_URL != ''
     steps:
       - name: Checkout repository
+        if: secrets.LHCI_TOKEN != ''
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
