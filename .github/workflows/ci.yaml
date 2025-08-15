@@ -7,7 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     if: vars.LHCI_TOKEN != '' && vars.LHCI_SERVER_BASE_URL != ''
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
       - name: run Lighthouse CI
         run: npx @lhci/cli autorun
         env:
