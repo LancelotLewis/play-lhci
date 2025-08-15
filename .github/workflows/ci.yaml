@@ -1,26 +1,17 @@
 name: CI
 on:
-  push:
   workflow_dispatch:
-    inputs:
-      message:
-        description: 'Message from the trigger'
-        required: false
 jobs:
   lhci:
     name: Lighthouse
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
+    if: vars.LHCI_TOKEN != '' && vars.LHCI_SERVER_BASE_URL != ''
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
       - name: Install dependencies
-        run: pnpm install
+        run: npm i -g @lhci/cli
       - name: run Lighthouse CI
-        run: pnpm start
+        run: hlci autorun
+        env:
+          LHCI_TOKEN: ${{ vars.LHCI_TOKEN }}
+          LHCI_SERVER_BASE_URL: ${{ vars.LHCI_SERVER_BASE_URL }}

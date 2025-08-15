@@ -23,14 +23,14 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "bot@arcblock.io"
+          git config --local user.name "bot"
 
       - name: Create empty commit
         run: |
           # 获取当前日期和时间
           CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')
-          COMMIT_MESSAGE="🕐 auto: $CURRENT_DATE"
+          COMMIT_MESSAGE="[auto] 🕐: $CURRENT_DATE"
 
           # 创建一个空的提交
           git commit --allow-empty -m "$COMMIT_MESSAGE"

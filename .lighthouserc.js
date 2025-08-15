@@ -5,6 +5,7 @@ module.exports = {
         //
         'https://www.arcblock.io/en',
         'https://www.arcblock.io/en/about-us',
+        'https://community.arcblock.io',
       ],
       settings: {
         chromeFlags: '--no-sandbox --headless --disable-gpu',
@@ -13,8 +14,8 @@ module.exports = {
     },
     upload: {
       target: 'lhci',
-      serverBaseUrl: 'https://lhci.invictus.ac.cn',
-      token: '2a83349a-f494-444c-98dd-ee1ec44180dd',
+      serverBaseUrl: process.env.LHCI_SERVER_BASE_URL,
+      token: process.env.LHCI_TOKEN,
     },
   },
 };
