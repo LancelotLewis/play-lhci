@@ -14,7 +14,7 @@ jobs:
   create-empty-commit:
     name: Create Empty Commit
     runs-on: ubuntu-latest
-    if: vars.LHCI_TOKEN != '' && vars.LHCI_SERVER_BASE_URL != ''
+    if: ${{secrets.LHCI_TOKEN != '' && vars.LHCI_SERVER_BASE_URL != ''}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,9 +29,9 @@ jobs:
 
       - name: Create empty commit
         run: |
-          # 获取当前日期和时间
+          # 获取当前日期和时间 (UTC)
           CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')
-          COMMIT_MESSAGE="[ci] 🕐: $CURRENT_DATE"
+          COMMIT_MESSAGE="[ci] UTC🕐: $CURRENT_DATE"
 
           # 创建一个空的提交
           git commit --allow-empty -m "$COMMIT_MESSAGE"
