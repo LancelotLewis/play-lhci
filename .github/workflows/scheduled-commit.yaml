@@ -13,7 +13,7 @@ jobs:
   create-empty-commit:
     name: Create Empty Commit
     runs-on: ubuntu-latest
-
+    if: vars.LHCI_TOKEN != '' && vars.LHCI_SERVER_BASE_URL != ''
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
