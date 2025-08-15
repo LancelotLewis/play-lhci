@@ -8,10 +8,8 @@ jobs:
     if: vars.LHCI_TOKEN != '' && vars.LHCI_SERVER_BASE_URL != ''
     steps:
       - uses: actions/checkout@v4
-      - name: Install dependencies
-        run: npm i -g @lhci/cli
       - name: run Lighthouse CI
-        run: hlci autorun
+        run: npx @lhci/cli autorun
         env:
           LHCI_TOKEN: ${{ vars.LHCI_TOKEN }}
           LHCI_SERVER_BASE_URL: ${{ vars.LHCI_SERVER_BASE_URL }}
