@@ -30,7 +30,7 @@ jobs:
         run: |
           # 获取当前日期和时间
           CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')
-          COMMIT_MESSAGE="[auto] 🕐: $CURRENT_DATE"
+          COMMIT_MESSAGE="[ci] 🕐: $CURRENT_DATE"
 
           # 创建一个空的提交
           git commit --allow-empty -m "$COMMIT_MESSAGE"
@@ -38,7 +38,7 @@ jobs:
       - name: Push to repository
         run: |
           git push origin HEAD:${{ github.ref }}
-          sleep 30
-          gh workflow run "CI" -f message="$COMMIT_MESSAGE"
+          sleep 10
+          gh workflow run "CI"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
