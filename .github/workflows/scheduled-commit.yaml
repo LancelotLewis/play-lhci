@@ -14,10 +14,14 @@ jobs:
   create-empty-commit:
     name: Create Empty Commit
     runs-on: ubuntu-latest
-    if: vars.LHCI_SERVER_BASE_URL != ''
     steps:
+      - name: Check for required variables
+        run: |
+          if [[ -z "${{ secrets.LHCI_TOKEN }}" || -z "${{ vars.LHCI_SERVER_BASE_URL }}" ]]; then
+            echo "::error::Lighthouse CI is skipped because LHCI_TOKEN or LHCI_SERVER_BASE_URL is missing."
+            exit 1 # Or exit 0 if you want to allow it to pass
+          fi
       - name: Checkout repository
-        if: secrets.LHCI_TOKEN != ''
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
